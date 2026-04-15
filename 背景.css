@@ -1,0 +1,333 @@
+/* 背景、粒子效果 */
+body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: "楷体", KaiTi, "华文楷体", STKaiti, serif;
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 107, 107, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-20px) translateX(10px);
+    }
+}
+
+/* 雪花飘落 */
+@keyframes fall {
+    from {
+        transform: translateY(-10px) rotate(0deg);
+    }
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* 星空样式 */
+.starry-sky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--duration) ease-in-out infinite;
+    opacity: 0;
+    filter: blur(0.5px);
+    box-shadow: 0 0 4px #fff;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.1;
+        transform: scale(0.3);
+        filter: brightness(0.5);
+    }
+    50% {
+        opacity: var(--brightness);
+        transform: scale(1.2);
+        filter: brightness(1.5);
+    }
+}
+
+/* 流星效果 */
+.shooting-star {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0.9) 20%,
+        rgba(255, 255, 255, 0.4) 60%,
+        transparent 100%);
+    transform-origin: left;
+    opacity: 0;
+    filter: blur(1.5px);
+    box-shadow:
+        0 0 30px #fff,
+        0 0 50px #fff,
+        0 0 70px #fff;
+    z-index: 1000;
+}
+
+@keyframes shoot {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(var(--angle));
+    }
+    5% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--distance), var(--distance)) rotate(var(--angle));
+    }
+}
+
+/* 烟花效果 */
+.firework {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.firework-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: explode 1.5s ease-out forwards;
+    box-shadow: 0 0 15px currentColor, 0 0 30px currentColor;
+    filter: blur(0.5px);
+}
+
+@keyframes explode {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(calc(var(--ty) * 0.5)) translateX(calc(var(--tx) * 0.5)) scale(1.2);
+    }
+    100% {
+        transform: translateY(var(--ty)) translateX(var(--tx)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* 漂浮表情符号 */
+.floating-emoji {
+    position: fixed;
+    font-size: 30px;
+    pointer-events: none;
+    z-index: 100;
+    animation: floatEmoji 4s linear forwards;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+@keyframes floatEmoji {
+    0% {
+        transform: translateY(100vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-50px) rotate(360deg) scale(0.4);
+        opacity: 0;
+    }
+}
+
+/* 鼠标轨迹 */
+.mouse-trail {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    background: radial-gradient(circle, #ff4d4d 0%, transparent 70%);
+    animation: trail-fade 1s linear forwards;
+}
+
+@keyframes trail-fade {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* 花瓣飘落 */
+.petal {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    animation: falling 10s linear infinite;
+    color: #ff69b4;
+    opacity: 0.7;
+    text-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+}
+
+@keyframes falling {
+    0% {
+        transform: translate(var(--startX), -10%) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(var(--endX), 110%) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* 蛇效果 */
+.snake {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.snake-segment {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--color));
+    box-shadow: 0 0 20px var(--color);
+    opacity: 0.9;
+    will-change: transform;
+    transform: translate(-50%, -50%);
+}
+
+/* 烟花尾迹 */
+.firework-trail {
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.firework-trail-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: riseUp 3s linear infinite;
+    box-shadow: 0 0 15px currentColor, 0 0 30px currentColor;
+    filter: blur(0.5px);
+}
+
+@keyframes riseUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(var(--height));
+        opacity: 0;
+    }
+}
+
+/* 螺旋烟花 */
+.firework-spiral {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.firework-spiral-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: spiral 2s linear infinite;
+    box-shadow: 0 0 15px currentColor, 0 0 30px currentColor;
+    filter: blur(0.5px);
+}
+
+@keyframes spiral {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* 文字内容区域 */
+.content {
+  position: absolute; /* 设置绝对定位 */
+  top: 0;            /* 距离顶部 0 */
+  left: 0;           /* 距离左侧 0 */
+  padding: 20px;     /* 可选：加一点内边距，不至于太贴边 */
+  z-index: 10;
+  color: yellow;       /* 确保它在粒子背景的上方显示 */
+}
+
+
+.content h1 {
+    font-size: 3em;
+    text-shadow: 0 0 15px rgba(255, 107, 107, 0.7);
+    margin: 0;
+}
+.content a {
+    color: #ffcc00;      /* 修改颜色：这里用的是亮黄色，你也可以改成 "red", "white" 等 */
+    font-size: 30px;/*:大字体越大 */
+    text-decoration: none; /* 选填：去掉超链接默认自带的下划线，看起来更清爽 */
+    font-weight:old;  /* 选填：让字体加粗 */
+}
+
+/* 💡 进阶小技巧：设置鼠标悬停时的效果 */
+.content a:hover {
+    color: #ffffff;      /* 鼠标放上去时，文字会变成白色 */
+}
