@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 20px;
+        padding: 0;
+      }
+      .background {
+        background: url(./images/banner1.jpg) no-repeat center / cover;
+        height: calc(100vh - 40px);
+        position: relative;
+      }
+      .a1 {
+        width: 150px;
+        height: 150px;
+        background: url(./images/arrow1.png) no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 20px;
+      }
+      .a2 {
+        width: 150px;
+        height: 150px;
+        background: url(./images/arrow2.png) no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 20px;
+      }
+      .point {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+      }
+      .point div {
+        width: 50px;
+        height: 50px;
+        margin: 0 20px;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background">
+      <div class="a1"></div>
+      <div class="a2"></div>
+      <div class="point">
+        <div
+          class="a3"
+          style="background-image: url(./images/point1.png)"
+        ></div>
+        <div
+          class="a4"
+          style="background-image: url(./images/point2.png)"
+        ></div>
+        <div
+          class="a5"
+          style="background-image: url(./images/point1.png)"
+        ></div>
+        <div
+          class="a6"
+          style="background-image: url(./images/point1.png)"
+        ></div>
+      </div>
+    </div>
+  </body>
+</html>
