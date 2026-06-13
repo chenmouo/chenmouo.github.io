@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(152, 151, 151);
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+        }
+
+        #head {
+            width: 400px;
+            height: 50px;
+            background-color: rgb(44, 44, 42);
+            position: relative;
+            top: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #head span {
+            font-size: 2em;
+            color: #ffffff;
+            font-family: 楷体;
+            letter-spacing: 20px;
+        }
+
+        .content {
+            position: relative;
+            top: 50px;
+            width: 390px;
+            height: 300px;
+            background-color: rgb(255, 244, 244);
+            border: 5px solid rgb(255, 249, 245);
+            display: flex;
+            justify-content: center;
+        }
+
+        #a1 {
+            width: 98%;
+            height: 10%;
+            background: linear-gradient(white, rgb(152, 151, 151));
+            border: 5px solid rgb(236, 194, 194);
+            display: flex;
+            align-items: center;
+        }
+
+        #a1>span:nth-child(1) {
+            font-size: 2em;
+            position: relative;
+            left: 50px;
+        }
+
+        #a1>span:nth-child(2) {
+            font-size: 1em;
+            position: relative;
+            left: 65px;
+        }
+
+        #a2 {
+            width: 100%;
+            height: 85%;
+            position: absolute;
+            top: 15%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+
+        }
+
+        #a2 div {
+            width: 250px;
+            height: 30px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        #a2 .icon {
+            width: 30px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #888;
+        }
+
+        #a2 input {
+            flex: 1;
+            border: none;
+            outline: none;
+            height: 100%;
+            background: transparent;
+            font-size: 0.9em;
+        }
+
+        #a2 button {
+            width: 100%;
+            height: 30px;
+            border: none;
+            background-color: rgb(107, 107, 107);
+            color: #000000;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        #a2 div:last-child {
+            border: 1px rgb(78, 73, 73)solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="head">
+        <span>网上书城</span>
+    </div>
+    <div class="content">
+        <div id="a1"><span>+</span><span>新用户注册</span></div>
+        <div id="a2">
+            <div><span class="icon">🎫</span><input type="text" placeholder="用户名"></div>
+            <div><span class="icon">🔑</span><input type="password" placeholder="密码"></div>
+            <div><span class="icon">🗝️</span><input type="password" placeholder="确认密码"></div>
+            <div><span class="icon">📧</span><input type="text" placeholder="电子邮箱"></div>
+            <div><button>注册新用户</button></div>
+        </div>
+    </div>
+</body>
+
+</html>
