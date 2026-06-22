@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人方案与定价 · TRAE</title>
+  <style>
+    :root {
+      --bg: #070808;
+      --panel: #141414;
+      --panel-line: #2a2a2a;
+      --text: #f5f5f5;
+      --muted: #8a8f8b;
+      --green: #16d672;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding-top: 54px;
+      min-height: 100vh;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 54px;
+      padding: 0 22px;
+      background: rgba(7, 8, 8, .72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 1px;
+      border: 1.5px solid var(--text);
+      padding: 2px 7px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .menu a,
+    .menu-item {
+      color: var(--text);
+      font-size: 13.5px;
+      text-decoration: none;
+      cursor: pointer;
+      opacity: .9;
+      white-space: nowrap;
+    }
+
+    .menu a:hover,
+    .menu-item:hover {
+      opacity: 1;
+    }
+
+    .menu-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .caret {
+      font-size: 9px;
+      opacity: .7;
+      transition: transform .2s;
+    }
+
+    .menu-item:hover .caret {
+      transform: rotate(180deg);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .login {
+      color: var(--text);
+      font-size: 13.5px;
+      text-decoration: none;
+      opacity: .9;
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: #06210f;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 7px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      transition: filter .15s;
+    }
+
+    .btn-green:hover {
+      filter: brightness(1.08);
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 30px;
+      left: -12px;
+      width: 248px;
+      background: var(--panel);
+      border: 1px solid var(--panel-line);
+      border-radius: 12px;
+      padding: 8px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: .18s ease;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .55);
+    }
+
+    .menu-item:hover .dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dd-item {
+      display: flex;
+      gap: 11px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .dd-item:hover {
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .dd-icon {
+      flex: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: #222;
+      border: 1px solid #313131;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #cfcfcf;
+    }
+
+    .dd-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .dd-title {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .badge-new {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--green);
+      border: 1px solid rgba(22, 214, 114, .5);
+      border-radius: 4px;
+      padding: 1px 4px;
+      letter-spacing: .5px;
+    }
+
+    .dd-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .head {
+      text-align: center;
+      padding: 60px 20px 14px;
+    }
+
+    .head h1 {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      line-height: 1.15;
+      background: linear-gradient(100deg, #ffffff 0%, #9ff0c8 45%, #16d672 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .head .sub {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .head .sub a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .head .sub a:hover {
+      color: var(--text);
+    }
+
+    .head .sub .arrow {
+      color: var(--green);
+    }
+
+    .plans-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 30px 22px 80px;
+    }
+
+    .plans {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .plan {
+      flex: 1 1 0;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      background: var(--panel);
+      border: 1px solid #262626;
+      border-radius: 14px;
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: border-color .18s, background .18s, box-shadow .18s;
+    }
+
+    .plan:hover,
+    .plan-wide:hover {
+      border: 1.5px solid var(--green);
+      background: #0f1a14;
+      box-shadow: 0 0 0 1px rgba(22, 214, 114, .15), 0 16px 40px rgba(22, 214, 114, .08);
+    }
+
+    .plan-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      min-height: 24px;
+    }
+
+    .plan-name {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .plan-name.accent {
+      color: var(--green);
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green);
+      background: rgba(22, 214, 114, .12);
+      border: 1px solid rgba(22, 214, 114, .4);
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    .tag.gray {
+      color: #d8b15a;
+      background: rgba(216, 177, 90, .1);
+      border-color: rgba(216, 177, 90, .4);
+    }
+
+    .price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .price .pre {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .price .num {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    .price .per {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .price .old {
+      font-size: 13px;
+      color: #5f635f;
+      text-decoration: line-through;
+      margin-left: 6px;
+    }
+
+    .feats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+
+    .feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 12.5px;
+      color: #cfd2cf;
+      line-height: 1.45;
+    }
+
+    .feat svg {
+      flex: none;
+      margin-top: 1px;
+      color: var(--green);
+    }
+
+    .plan-btn {
+      width: 100%;
+      text-align: center;
+      padding: 11px 0;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #3a3a3a;
+      background: #1e1e1e;
+      color: var(--text);
+      text-decoration: none;
+      display: block;
+      transition: .15s;
+    }
+
+    .plan-btn:hover {
+      background: #262626;
+    }
+
+    .plan-btn.primary,
+    .plan:hover .plan-btn,
+    .plan-wide:hover .plan-btn {
+      background: var(--green);
+      color: #06210f;
+      border: none;
+    }
+
+    .plan-btn.primary:hover,
+    .plan:hover .plan-btn:hover,
+    .plan-wide:hover .plan-btn:hover {
+      filter: brightness(1.08);
+      background: var(--green);
+    }
+
+    .plan-wide {
+      flex: 1 1 100%;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      background: var(--panel);
+      border: 1px solid #262626;
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-top: 16px;
+      cursor: pointer;
+      transition: border-color .18s, background .18s, box-shadow .18s;
+    }
+
+    .plan-wide .left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 200px;
+    }
+
+    .plan-wide .feats {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 10px 26px;
+      margin: 0;
+      flex: 1;
+    }
+
+    .plan-wide .plan-btn {
+      width: auto;
+      padding: 11px 34px;
+    }
+
+    .plan-wide .price {
+      margin: 0;
+    }
+
+    @media (max-width:880px) {
+      .menu {
+        display: none;
+      }
+
+      .plan {
+        flex: 1 1 calc(50% - 8px);
+      }
+
+      .head h1 {
+        font-size: 32px;
+        letter-spacing: 1px;
+      }
+
+      .plan-wide {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width:520px) {
+      .plan {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="nav-left">
+      <div class="logo"><a href="./主页面.html" style="color: white; text-decoration: none;">TRAE</a></div>
+      <nav class="menu">
+        <div class="menu-item">产品 <span class="caret">▾</span>
+          <div class="dropdown">
+            <div class="dd-item">
+              <div class="dd-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <rect x="3" y="4" width="18" height="14" rx="2" />
+                  <path d="M8 20h8" />
+                </svg></div>
+              <div class="dd-text">
+                <div class="dd-title">TRAE Work <span class="badge-new">NEW</span></div>
+                <div class="dd-sub">AI 工作助手</div>
+              </div>
+            </div>
+            <div class="dd-item">
+              <div class="dd-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12" />
+                </svg></div>
+              <div class="dd-text">
+                <div class="dd-title">TRAE IDE</div>
+                <div class="dd-sub">AI 原生 IDE</div>
+              </div>
+            </div>
+            <div class="dd-item">
+              <div class="dd-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <path d="M11 4H6a2 2 0 00-2 2v5m0 4v3a2 2 0 002 2h12a2 2 0 002-2v-7" />
+                  <rect x="13" y="2" width="8" height="8" rx="1.5" />
+                </svg></div>
+              <div class="dd-text">
+                <div class="dd-title">TRAE 插件</div>
+                <div class="dd-sub">AI 编程助手</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a href="#">企业版</a>
+        <a href="./定价.html">定价</a>
+        <a href="#">文档</a>
+        <a href="./更新日志.html">更新日志</a>
+        <a href="#">社区</a>
+        <a href="#">知识库</a>
+      </nav>
+    </div>
+    <div class="nav-right">
+      <a href="#" class="login">登录</a>
+      <a href="#" class="btn-green">下载中心</a>
+    </div>
+  </header>
+  <section class="head">
+    <h1>个人方案与定价</h1>
+    <div class="sub">企业版选型与咨询，前往火山引擎 <span class="arrow">↗</span></div>
+  </section>
+  <div class="plans-wrap">
+    <div class="plans">
+      <div class="plan">
+        <div class="plan-head"><span class="plan-name accent">免费</span></div>
+        <div class="price"><span class="num">¥0</span></div>
+        <div class="feats">
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>所有功能均可免费使用</div>
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>支持 2 个云端任务同时并行</div>
+        </div>
+        <a href="#" class="plan-btn">免费使用</a>
+      </div>
+      <div class="plan">
+        <div class="plan-head"><span class="plan-name accent">速通 Pro</span><span class="tag">新用户限时优惠</span></div>
+        <div class="price"><span class="pre">低至</span><span class="num">¥59</span><span class="per">/月</span></div>
+        <div class="feats">
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>每月 100 次包级别速通次数</div>
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>支持 10 个云端任务同时并行</div>
+        </div>
+        <a href="#" class="plan-btn">立即升级</a>
+      </div>
+      <div class="plan">
+        <div class="plan-head"><span class="plan-name accent">速通 Pro+</span></div>
+        <div class="price"><span class="num">¥239</span><span class="per">/月</span></div>
+        <div class="feats">
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>每月 300 次包级别速通次数</div>
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>支持 10 个云端任务同时并行</div>
+        </div>
+        <a href="#" class="plan-btn">立即升级</a>
+      </div>
+      <div class="plan">
+        <div class="plan-head"><span class="plan-name accent">速通 Ultra</span></div>
+        <div class="price"><span class="num">¥699</span><span class="per">/月</span></div>
+        <div class="feats">
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>每月 1000 次包级别速通次数</div>
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>支持 20 个云端任务同时并行</div>
+          <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.4">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>优先解锁 SOTA 模型</div>
+        </div>
+        <a href="#" class="plan-btn">立即升级</a>
+      </div>
+
+    </div>
+    <div class="plan-wide">
+      <div class="left">
+        <div class="plan-head" style="margin:0;"><span class="plan-name accent">优速通 Express</span><span
+            class="tag gray">限量发售</span></div>
+        <div class="price"><span class="pre">低至</span><span class="num">¥1399</span><span class="per">/月</span><span
+            class="old">¥1999</span></div>
+      </div>
+      <div class="feats">
+        <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.4">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>有效期内无限次包级别速通次数</div>
+        <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.4">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>支持 20 个云端任务同时并行</div>
+        <div class="feat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.4">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>优先解锁 SOTA 模型</div>
+      </div>
+      <a href="#" class="plan-btn">立即升级</a>
+    </div>
+  </div>
+
+</body>
+
+</html>
